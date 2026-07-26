@@ -1,5 +1,6 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { SignIn } from "~/lib/auth";
+import ClientOnly from "~/components/ClientOnly";
 
 const PUBLISHABLE_KEY = import.meta.env.VITE_CLERK_PUBLISHABLE_KEY as string | undefined;
 
@@ -32,32 +33,34 @@ function SignInPage() {
 
           {PUBLISHABLE_KEY ? (
             <div className="rounded-2xl bg-white p-6 shadow-sm ring-1 ring-gray-200">
-              <SignIn
-                routing="path"
-                path="/sign-in"
-                signUpUrl="/sign-up"
-                fallbackRedirectUrl="/dashboard"
-                appearance={{
-                  elements: {
-                    rootBox: "w-full",
-                    card: "shadow-none p-0 w-full",
-                    headerTitle: "hidden",
-                    headerSubtitle: "hidden",
-                    socialButtonsBlockButton:
-                      "rounded-xl border border-gray-300 px-4 py-3 text-sm font-medium text-gray-700 hover:bg-gray-50 transition-colors",
-                    formButtonPrimary:
-                      "rounded-xl bg-indigo-600 px-6 py-3 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 transition-all w-full",
-                    formFieldInput:
-                      "rounded-xl border border-gray-300 px-4 py-3 text-sm text-gray-900 placeholder-gray-400 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500/20 transition w-full",
-                    formFieldLabel: "text-sm font-medium text-gray-700",
-                    dividerLine: "bg-gray-200",
-                    dividerText: "text-sm text-gray-500",
-                    footerActionText: "text-sm text-gray-600",
-                    footerActionLink:
-                      "text-sm font-medium text-indigo-600 hover:text-indigo-500",
-                  },
-                }}
-              />
+              <ClientOnly fallback={<div className="py-12 text-center text-sm text-gray-500">Loading sign-in…</div>}>
+                <SignIn
+                  routing="path"
+                  path="/sign-in"
+                  signUpUrl="/sign-up"
+                  fallbackRedirectUrl="/dashboard"
+                  appearance={{
+                    elements: {
+                      rootBox: "w-full",
+                      card: "shadow-none p-0 w-full",
+                      headerTitle: "hidden",
+                      headerSubtitle: "hidden",
+                      socialButtonsBlockButton:
+                        "rounded-xl border border-gray-300 px-4 py-3 text-sm font-medium text-gray-700 hover:bg-gray-50 transition-colors",
+                      formButtonPrimary:
+                        "rounded-xl bg-indigo-600 px-6 py-3 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 transition-all w-full",
+                      formFieldInput:
+                        "rounded-xl border border-gray-300 px-4 py-3 text-sm text-gray-900 placeholder-gray-400 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500/20 transition w-full",
+                      formFieldLabel: "text-sm font-medium text-gray-700",
+                      dividerLine: "bg-gray-200",
+                      dividerText: "text-sm text-gray-500",
+                      footerActionText: "text-sm text-gray-600",
+                      footerActionLink:
+                        "text-sm font-medium text-indigo-600 hover:text-indigo-500",
+                    },
+                  }}
+                />
+              </ClientOnly>
             </div>
           ) : (
             <div className="rounded-2xl bg-white p-6 shadow-sm ring-1 ring-gray-200 text-center">

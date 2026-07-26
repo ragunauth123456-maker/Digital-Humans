@@ -1,5 +1,6 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { SignUp } from "~/lib/auth";
+import ClientOnly from "~/components/ClientOnly";
 
 const PUBLISHABLE_KEY = import.meta.env.VITE_CLERK_PUBLISHABLE_KEY as string | undefined;
 
@@ -32,7 +33,8 @@ function SignUpPage() {
 
           {PUBLISHABLE_KEY ? (
             <div className="rounded-2xl bg-white p-6 shadow-sm ring-1 ring-gray-200">
-              <SignUp
+              <ClientOnly fallback={<div className="py-12 text-center text-sm text-gray-500">Loading sign-up…</div>}>
+                <SignUp
                 routing="path"
                 path="/sign-up"
                 signInUrl="/sign-in"
@@ -58,6 +60,7 @@ function SignUpPage() {
                   },
                 }}
               />
+              </ClientOnly>
             </div>
           ) : (
             <div className="rounded-2xl bg-white p-6 shadow-sm ring-1 ring-gray-200 text-center">
