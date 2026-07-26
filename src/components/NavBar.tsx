@@ -23,9 +23,17 @@ export default function NavBar() {
       }`}
     >
       <div className="mx-auto max-w-7xl px-6 py-4 flex items-center justify-between">
-        <Link to="/" className="text-xl font-bold tracking-tight text-gray-900">
-          Digital Humans
-        </Link>
+        <div className="flex items-center gap-8">
+          <Link to="/" className="text-xl font-bold tracking-tight text-gray-900">
+            Digital Humans
+          </Link>
+          <Link
+            to="/browse"
+            className="text-sm font-medium text-gray-700 hover:text-indigo-600 transition-colors"
+          >
+            Browse
+          </Link>
+        </div>
 
         <div className="flex items-center gap-4">
           {!isLoaded ? (

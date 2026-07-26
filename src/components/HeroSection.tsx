@@ -37,11 +37,17 @@ export default function HeroSection() {
                   >
                     Create Your Digital Human
                   </Link>
-                  <a
-                    href="#what-is"
+                  <Link
+                    to="/browse"
                     className="text-base font-semibold text-gray-900 hover:text-indigo-600 transition-colors"
                   >
-                    Learn more <span aria-hidden="true">→</span>
+                    Browse Digital Humans <span aria-hidden="true">→</span>
+                  </Link>
+                  <a
+                    href="#what-is"
+                    className="text-base font-semibold text-gray-500 hover:text-gray-700 transition-colors"
+                  >
+                    Learn more
                   </a>
                 </>
               ) : (
@@ -53,10 +59,16 @@ export default function HeroSection() {
                     Join the Waitlist
                   </a>
                   <Link
-                    to="/sign-in"
+                    to="/browse"
                     className="text-base font-semibold text-gray-900 hover:text-indigo-600 transition-colors"
                   >
-                    Sign In <span aria-hidden="true">→</span>
+                    Browse Digital Humans <span aria-hidden="true">→</span>
+                  </Link>
+                  <Link
+                    to="/sign-in"
+                    className="text-base font-semibold text-gray-500 hover:text-gray-700 transition-colors"
+                  >
+                    Sign In
                   </Link>
                 </>
               )}

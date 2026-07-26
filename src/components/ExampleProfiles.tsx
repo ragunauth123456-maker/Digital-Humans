@@ -1,3 +1,5 @@
+import { Link } from "@tanstack/react-router";
+
 interface Profile {
   initials: string;
   name: string;
@@ -104,6 +106,16 @@ export default function ExampleProfiles() {
               </blockquote>
             </div>
           ))}
+        </div>
+
+        <div className="mt-12 text-center">
+          <Link
+            to="/browse"
+            className="inline-flex items-center gap-2 rounded-xl bg-white px-6 py-3 text-sm font-semibold text-indigo-600 shadow-sm ring-1 ring-inset ring-indigo-200 hover:bg-indigo-50 transition-colors"
+          >
+            Browse All Digital Humans
+            <span aria-hidden="true">→</span>
+          </Link>
         </div>
       </div>
     </section>

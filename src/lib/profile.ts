@@ -195,6 +195,58 @@ export const getProfile = createServerFn({ method: "GET" })
     }
   });
 
+export const getPublishedProfiles = createServerFn({ method: "GET" })
+  .handler(async () => {
+    let neonPkg: typeof import("@neondatabase/serverless") | null = null;
+    try {
+      neonPkg = await import("@neondatabase/serverless");
+    } catch {
+      return { success: false as const, error: "no-db" as const };
+    }
+
+    const url = process.env.DATABASE_URL;
+    if (!url) {
+      return { success: false as const, error: "no-db" as const };
+    }
+
+    const sql = neonPkg.neon(url);
+
+    try {
+      await ensureTable(sql);
+    } catch {
+      return { success: false as const, error: "no-db" as const };
+    }
+
+    try {
+      const rows = await sql`
+        SELECT id, display_name, title, biography, expertise_areas, years_experience, avatar_url, created_at
+        FROM profiles
+        WHERE is_published = true
+        ORDER BY created_at DESC
+      `;
+      const profiles: Profile[] = rows.map((p) => ({
+        id: p.id as number,
+        clerk_user_id: "",
+        display_name: p.display_name as string,
+        title: p.title as string | undefined,
+        biography: p.biography as string | undefined,
+        expertise_areas: (p.expertise_areas as string[]) ?? [],
+        years_experience: p.years_experience as number | undefined,
+        credentials: [],
+        education: [],
+        certifications: [],
+        languages: [],
+        avatar_url: p.avatar_url as string | undefined,
+        is_published: true,
+        created_at: String(p.created_at),
+        updated_at: "",
+      }));
+      return { success: true as const, profiles };
+    } catch {
+      return { success: false as const, error: "no-db" as const };
+    }
+  });
+
 export const getMyProfile = createServerFn({ method: "GET" })
   .validator((data: unknown) => {
     const obj = data as { clerkUserId?: string };
