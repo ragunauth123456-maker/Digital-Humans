@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { getProfile } from "~/lib/profile";
 import type { Profile } from "~/lib/profile";
+import ChatWidget from "~/components/ChatWidget";
 
 export const Route = createFileRoute("/profile/$profileId")({
   component: ProfileViewPage,
@@ -265,6 +266,7 @@ function ProfileViewPage() {
                 </div>
               </div>
             )}
+            <ChatWidget profile={{ id: profile.id, display_name: profile.display_name, is_published: profile.is_published }} />
           </>
         ) : null}
       </div>
